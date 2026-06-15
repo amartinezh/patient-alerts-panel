@@ -1,0 +1,7 @@
+{
+  // Usa el TypeScript del workspace (frontend: 6.0.3) en lugar del que trae VS Code.
+  // El TS empaquetado en el editor es < 5.8 y no conoce `erasableSyntaxOnly`,
+  // por eso marcaba "Unknown compiler option" aunque `tsc` compila sin error.
+  "typescript.tsdk": "frontend/node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
+}

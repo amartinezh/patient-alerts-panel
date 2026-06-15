@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Patient {
+  id     String         @id @default(uuid())
+  name   String
+  dni    String
+  alerts PatientAlert[]
+}
+
+// type y severity son String porque SQLite no soporta enums de Prisma.
+// Los valores validos los define y valida el dominio (AlertType / AlertSeverity).
+model PatientAlert {
+  id        String   @id @default(uuid())
+  patientId String
+  patient   Patient  @relation(fields: [patientId], references: [id])
+  type      String
+  severity  String
+  message   String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([patientId, isActive])
+}
